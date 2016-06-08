@@ -5,7 +5,7 @@ namespace TicTacToeServer.Core
     public class TicTacToeGame
     {
         private readonly IAi _aI;
-        private readonly GameSettings.gameSetting _setting;
+        public readonly GameSettings.gameSetting Setting;
         private readonly IUser _user;
 
         public TicTacToeGame(IUser user, IAi aI,
@@ -13,7 +13,7 @@ namespace TicTacToeServer.Core
         {
             _user = user;
             _aI = aI;
-            _setting = setting;
+            Setting = setting;
         }
 
         public ITicTacToeBoxClass.ITicTacToeBox Play(
@@ -25,16 +25,16 @@ namespace TicTacToeServer.Core
             var newTicTacToeBox =
                 (TicTacToeBoxClass.TicTacToeBox)
                     _user.Move(ticTacToeBox, move,
-                        _setting.playerGlyph, _setting.aIGlyph);
+                        Setting.playerGlyph, Setting.aIGlyph);
             return !CheckForWinner(newTicTacToeBox)
-                ? _aI.Move(newTicTacToeBox, _setting)
+                ? _aI.Move(newTicTacToeBox, Setting)
                 : newTicTacToeBox;
         }
 
         public bool CheckForWinner(TicTacToeBoxClass.TicTacToeBox ticTacToeBox)
         {
             return CheckForWinnerOrTie.checkForWinnerOrTie(ticTacToeBox,
-                _setting.playerGlyph, _setting.aIGlyph)
+                Setting.playerGlyph, Setting.aIGlyph)
                    != (int) GameStatusCodes.GenResult.NoWinner;
         }
     }

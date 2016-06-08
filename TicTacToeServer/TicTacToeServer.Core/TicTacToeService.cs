@@ -37,13 +37,24 @@ namespace TicTacToeServer.Core
                 new TicTacToeBoxClass.TicTacToeBox(
                     ListModule.OfSeq(GetBoxValues(data)));
 
-            ticTacToeBox = (TicTacToeBoxClass.TicTacToeBox)
-                game.Play(ticTacToeBox,
-                    CleanInput.SanitizeHumanPickedPlace(move, 9));
+            var errorMesageCode = Game.isUserInputCorrect(ticTacToeBox,
+                move, game.Setting.playerGlyph, game.Setting.aIGlyph);
+
+            if(errorMesageCode == Translate.Blank)
+                ticTacToeBox = (TicTacToeBoxClass.TicTacToeBox)
+                    game.Play(ticTacToeBox,
+                        CleanInput.SanitizeHumanPickedPlace(move, 9));
 
             var form = MakeForm(ticTacToeBox);
+            var errorMessage = errorMesageCode != Translate.Blank
+                ? "<p>" + 
+                Translator.translator(Translator.language.english, 
+                errorMesageCode) + "</p>"
+                : "";
+            form = errorMessage += form;
             if (game.CheckForWinner(ticTacToeBox))
             {
+                form = "<p>Game Over</p>" + form; 
                 form = form.Replace(@"Input Move:<br>", "");
                 form = form.Replace(@"<input type=""text"" name=""move""><br>", "");
                 form = form.Replace(@"<input type=""submit"" value=""Submit"">", "");
