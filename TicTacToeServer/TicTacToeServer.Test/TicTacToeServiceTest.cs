@@ -249,6 +249,7 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
             formPage.Append(@"<p>Game Over</p>");
+            formPage.Append(@"<a href=""http://127.0.0.1:5555""><button>Another Game?</button></a>");
             formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
@@ -327,6 +328,7 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
             formPage.Append(@"<p>Game Over</p>");
+            formPage.Append(@"<a href=""http://127.0.0.1:5555""><button>Another Game?</button></a>");
             formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
