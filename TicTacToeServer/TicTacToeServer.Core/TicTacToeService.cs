@@ -47,18 +47,20 @@ namespace TicTacToeServer.Core
                 ticTacToeBox = (TicTacToeBoxClass.TicTacToeBox)
                     game.Play(ticTacToeBox,
                         CleanInput.SanitizeHumanPickedPlace(move, 9));
-            
+
             httpResponse.HttpStatusCode = "200 OK";
             httpResponse.CacheControl = "no-cache";
             httpResponse.ContentType = "text/html";
 
-            httpResponse.Body = HtmlHeader() + Form(ticTacToeBox, game, errorMesageCode)
-                + HtmlTail();
+            httpResponse.Body = HtmlHeader() +
+                                Form(ticTacToeBox,
+                                    game, errorMesageCode, serverProperties)
+                                + HtmlTail();
             return httpResponse;
         }
 
         private string Form(ITicTacToeBoxClass.ITicTacToeBox ticTacToeBox,
-            TicTacToeGame game, int errorMesageCode)
+            TicTacToeGame game, int errorMesageCode, ServerProperties serverProperties)
         {
             var form = MakeForm(ticTacToeBox);
             form = RemoveButton(game.Setting.playerGlyph, form);
@@ -70,21 +72,24 @@ namespace TicTacToeServer.Core
                 : "";
             form = errorMessage += form;
             if (!game.CheckForWinner((TicTacToeBoxClass.TicTacToeBox) ticTacToeBox))
-                return form.ToString();
-            form = "<p>Game Over</p>" + form;
+                return form;
+            form = "<p>Game Over</p>"
+                   + @"<a href=""http://127.0.0.1:" + serverProperties.Port
+                   + @"""><button>Another Game?</button></a>"
+                   + form;
             for (var i = 0; i < ticTacToeBox.cellCount(); i++)
             {
                 form = RemoveButton("-" + (i + 1) + "-", form);
             }
-            return form.ToString();
+            return form;
         }
 
         private string RemoveButton(string symbol, string form)
         {
             return form.Replace(@"<button name=box type=""submit"" value="""
-                               + symbol + @""">"
-                               + symbol + "</button>",
-               symbol);
+                                + symbol + @""">"
+                                + symbol + "</button>",
+                symbol);
         }
 
         private List<string> GetBoxValues(string data)
