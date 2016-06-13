@@ -54,26 +54,26 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<html>");
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
+            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
                 "<tr>" +
-                "<td>-1-</td>" +
-                "<td>-2-</td>" +
-                "<td>-3-</td></tr>" +
+                @"<td><button name=box type=""submit"" value=""-1-"">-1-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-2-"">-2-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-3-"">-3-</button></td>" +
+                "</tr>" +
                 "<tr>" +
-                "<td>-4-</td>" +
-                "<td>-5-</td>" +
-                "<td>-6-</td></tr>" +
+                @"<td><button name=box type=""submit"" value=""-4-"">-4-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-5-"">-5-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-6-"">-6-</button></td>" +
+                "</tr>" +
                 "<tr>" +
-                "<td>-7-</td>" +
-                "<td>-8-</td>" +
-                "<td>-9-</td></tr>"
-                + "</table>"
+                @"<td><button name=box type=""submit"" value=""-7-"">-7-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-8-"">-8-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-9-"">-9-</button></td>" +
+                "</tr>" +
+                "</table>"
                 );
-            formPage.Append(@"<form action=""/"" method=""post"">");
-            formPage.Append(@"Input Move:<br>");
-            formPage.Append(@"<input type=""text"" name=""move""><br>");
-            formPage.Append(@"<input type=""submit"" value=""Submit"">");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 0 + @""" value=""-" +
                             1 + @"-""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 1 + @""" value=""-" +
@@ -146,26 +146,23 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<html>");
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
+            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
                 "<tr>" +
-                "<td>x</td>" +
-                "<td>@</td>" +
-                "<td>-3-</td></tr>" +
+                @"<td>x</td>" +
+                @"<td>@</td>" +
+                @"<td><button name=box type=""submit"" value=""-3-"">-3-</button></td></tr>" +
                 "<tr>" +
-                "<td>-4-</td>" +
-                "<td>-5-</td>" +
-                "<td>-6-</td></tr>" +
+                @"<td><button name=box type=""submit"" value=""-4-"">-4-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-5-"">-5-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-6-"">-6-</button></td></tr>" +
                 "<tr>" +
-                "<td>-7-</td>" +
-                "<td>-8-</td>" +
-                "<td>-9-</td></tr>"
+                @"<td><button name=box type=""submit"" value=""-7-"">-7-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-8-"">-8-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-9-"">-9-</button></td></tr>"
                 + "</table>"
                 );
-            formPage.Append(@"<form action=""/"" method=""post"">");
-            formPage.Append(@"Input Move:<br>");
-            formPage.Append(@"<input type=""text"" name=""move""><br>");
-            formPage.Append(@"<input type=""submit"" value=""Submit"">");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 0 + @""" value=""x""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 1 + @""" value=""@""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 2 + @""" value=""-3-""><br>");
@@ -205,7 +202,7 @@ namespace TicTacToeServer.Test
             request.Append("Accept-Encoding: gzip, deflate\r\n");
             request.Append("Accept-Language: en-US,en;q=0.8\r\n\r\n");
 
-            request.Append("move=1&pos0=-1-&pos1=-2-&pos2=-3-&pos3=-4-&pos4=-5-&pos5=-6-&pos6=-7-&pos7=-8-&pos8=-9-");
+            request.Append("box=-1-&pos0=-1-&pos1=-2-&pos2=-3-&pos3=-4-&pos4=-5-&pos5=-6-&pos6=-7-&pos7=-8-&pos8=-9-");
 
             var httpResponce = service.ProcessRequest(request.ToString(), serverProperties.DefaultResponse,
                 serverProperties);
@@ -252,23 +249,23 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
             formPage.Append(@"<p>Game Over</p>");
+            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
                 "<tr>" +
-                "<td>-1-</td>" +
-                "<td>x</td>" +
-                "<td>x</td></tr>" +
+                @"<td>-1-</td>" +
+                @"<td>x</td>" +
+                @"<td>x</td></tr>" +
                 "<tr>" +
-                "<td>x</td>" +
-                "<td>x</td>" +
-                "<td>x</td></tr>" +
+                @"<td>x</td>" +
+                @"<td>x</td>" +
+                @"<td>x</td></tr>" +
                 "<tr>" +
-                "<td>x</td>" +
-                "<td>x</td>" +
-                "<td>x</td></tr>"
+                @"<td>x</td>" +
+                @"<td>x</td>" +
+                @"<td>-9-</td></tr>"
                 + "</table>"
                 );
-            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 0 + @""" value=""-1-""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 1 + @""" value=""x""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 2 + @""" value=""x""><br>");
@@ -277,7 +274,7 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<input type=""hidden"" name=""pos" + 5 + @""" value=""x""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 6 + @""" value=""x""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 7 + @""" value=""x""><br>");
-            formPage.Append(@"<input type=""hidden"" name=""pos" + 8 + @""" value=""x""><br>");
+            formPage.Append(@"<input type=""hidden"" name=""pos" + 8 + @""" value=""-9-""><br>");
             formPage.Append(@"</form>");
             formPage.Append(@"</body>");
             formPage.Append(@"</html>");
@@ -303,12 +300,12 @@ namespace TicTacToeServer.Test
             request.Append(
                 "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36\r\n");
             request.Append("Content-Type: application/x-www-form-urlencoded\r\n");
-            request.Append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n");
+            request.Append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*;q=0.8\r\n");
             request.Append("Referer: http://localhost:8080/\r\n");
             request.Append("Accept-Encoding: gzip, deflate\r\n");
             request.Append("Accept-Language: en-US,en;q=0.8\r\n\r\n");
 
-            request.Append("move=1&pos0=-1-&pos1=x&pos2=x&pos3=x&pos4=x&pos5=x&pos6=x&pos7=x&pos8=x");
+            request.Append("box=-9-&pos0=-1-&pos1=x&pos2=x&pos3=x&pos4=x&pos5=x&pos6=x&pos7=x&pos8=-9-");
 
             var httpResponce = service.ProcessRequest(request.ToString(), serverProperties.DefaultResponse,
                 serverProperties);
@@ -330,23 +327,23 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
             formPage.Append(@"<p>Game Over</p>");
+            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
                 "<tr>" +
-                "<td>x</td>" +
-                "<td>@</td>" +
-                "<td>x</td></tr>" +
+                @"<td>x</td>" +
+                @"<td>@</td>" +
+                @"<td>x</td></tr>" +
                 "<tr>" +
-                "<td>x</td>" +
-                "<td>@</td>" +
-                "<td>x</td></tr>" +
+                @"<td>x</td>" +
+                @"<td>@</td>" +
+                @"<td>x</td></tr>" +
                 "<tr>" +
-                "<td>@</td>" +
-                "<td>x</td>" +
-                "<td>@</td></tr>"
+                @"<td>@</td>" +
+                @"<td>x</td>" +
+                @"<td>@</td></tr>"
                 + "</table>"
                 );
-            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 0 + @""" value=""x""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 1 + @""" value=""@""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 2 + @""" value=""x""><br>");
@@ -380,7 +377,7 @@ namespace TicTacToeServer.Test
             request.Append("Accept-Encoding: gzip, deflate\r\n");
             request.Append("Accept-Language: en-US,en;q=0.8\r\n\r\n");
 
-            request.Append("move=1&pos0=-1-&pos1=@&pos2=x&pos3=x&pos4=@&pos5=x&pos6=@&pos7=x&pos8=@");
+            request.Append("box=-1-&pos0=-1-&pos1=@&pos2=x&pos3=x&pos4=@&pos5=x&pos6=@&pos7=x&pos8=@");
 
             var httpResponce = service.ProcessRequest(request.ToString(), serverProperties.DefaultResponse,
                 serverProperties);
@@ -402,26 +399,24 @@ namespace TicTacToeServer.Test
             formPage.Append(@"<head><title>Vatic TicTacToe</title></head>");
             formPage.Append(@"<body>");
             formPage.Append(@"<p>Spot Taken</p>");
+            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(
                 @"<table style=""width: 100 % "">" +
                 "<tr>" +
-                "<td>x</td>" +
-                "<td>@</td>" +
-                "<td>-3-</td></tr>" +
+                @"<td>x</td>" +
+                @"<td>@</td>" +
+                @"<td><button name=box type=""submit"" value=""-3-"">-3-</button></td></tr>" +
                 "<tr>" +
-                "<td>-4-</td>" +
-                "<td>-5-</td>" +
-                "<td>-6-</td></tr>" +
+                @"<td><button name=box type=""submit"" value=""-4-"">-4-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-5-"">-5-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-6-"">-6-</button></td></tr>" +
                 "<tr>" +
-                "<td>-7-</td>" +
-                "<td>-8-</td>" +
-                "<td>-9-</td></tr>"
+                @"<td><button name=box type=""submit"" value=""-7-"">-7-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-8-"">-8-</button></td>" +
+                @"<td><button name=box type=""submit"" value=""-9-"">-9-</button></td></tr>"
                 + "</table>"
                 );
-            formPage.Append(@"<form action=""/"" method=""post"">");
-            formPage.Append(@"Input Move:<br>");
-            formPage.Append(@"<input type=""text"" name=""move""><br>");
-            formPage.Append(@"<input type=""submit"" value=""Submit"">");
+
             formPage.Append(@"<input type=""hidden"" name=""pos" + 0 + @""" value=""x""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 1 + @""" value=""@""><br>");
             formPage.Append(@"<input type=""hidden"" name=""pos" + 2 + @""" value=""-3-""><br>");
@@ -450,12 +445,12 @@ namespace TicTacToeServer.Test
             request.Append(
                 "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36\r\n");
             request.Append("Content-Type: application/x-www-form-urlencoded\r\n");
-            request.Append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n");
+            request.Append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*;q=0.8\r\n");
             request.Append("Referer: http://localhost:8080/\r\n");
             request.Append("Accept-Encoding: gzip, deflate\r\n");
             request.Append("Accept-Language: en-US,en;q=0.8\r\n\r\n");
 
-            request.Append("move=1&pos0=x&pos1=@&pos2=-3-&pos3=-4-&pos4=-5-&pos5=-6-&pos6=-7-&pos7=-8-&pos8=-9-");
+            request.Append("box=1&pos0=x&pos1=@&pos2=-3-&pos3=-4-&pos4=-5-&pos5=-6-&pos6=-7-&pos7=-8-&pos8=-9-");
 
             var httpResponce = service.ProcessRequest(request.ToString(), serverProperties.DefaultResponse,
                 serverProperties);

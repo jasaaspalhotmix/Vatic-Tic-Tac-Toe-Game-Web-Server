@@ -31,7 +31,10 @@ namespace TicTacToeServer.Core
                 , request.LastIndexOf("\r\n\r\n", StringComparison.Ordinal) + 4));
 
             var move = data.Substring(0, data.IndexOf("&", StringComparison.Ordinal))
-                .Replace("move=", "");
+                .Replace("box=", "");
+
+            if (move.StartsWith("-") && move.EndsWith("-") && move.Length > 2)
+                move = move.Replace("-", "");
 
             var ticTacToeBox =
                 new TicTacToeBoxClass.TicTacToeBox(
@@ -40,31 +43,48 @@ namespace TicTacToeServer.Core
             var errorMesageCode = Game.isUserInputCorrect(ticTacToeBox,
                 move, game.Setting.playerGlyph, game.Setting.aIGlyph);
 
-            if(errorMesageCode == Translate.Blank)
+            if (errorMesageCode == Translate.Blank)
                 ticTacToeBox = (TicTacToeBoxClass.TicTacToeBox)
                     game.Play(ticTacToeBox,
                         CleanInput.SanitizeHumanPickedPlace(move, 9));
-
-            var form = MakeForm(ticTacToeBox);
-            var errorMessage = errorMesageCode != Translate.Blank
-                ? "<p>" + 
-                Translator.translator(Translator.language.english, 
-                errorMesageCode) + "</p>"
-                : "";
-            form = errorMessage += form;
-            if (game.CheckForWinner(ticTacToeBox))
-            {
-                form = "<p>Game Over</p>" + form; 
-                form = form.Replace(@"Input Move:<br>", "");
-                form = form.Replace(@"<input type=""text"" name=""move""><br>", "");
-                form = form.Replace(@"<input type=""submit"" value=""Submit"">", "");
-            }
+            
             httpResponse.HttpStatusCode = "200 OK";
             httpResponse.CacheControl = "no-cache";
             httpResponse.ContentType = "text/html";
 
-            httpResponse.Body = HtmlHeader() + form + HtmlTail();
+            httpResponse.Body = HtmlHeader() + Form(ticTacToeBox, game, errorMesageCode)
+                + HtmlTail();
             return httpResponse;
+        }
+
+        private string Form(ITicTacToeBoxClass.ITicTacToeBox ticTacToeBox,
+            TicTacToeGame game, int errorMesageCode)
+        {
+            var form = MakeForm(ticTacToeBox);
+            form = RemoveButton(game.Setting.playerGlyph, form);
+            form = RemoveButton(game.Setting.aIGlyph, form);
+            var errorMessage = errorMesageCode != Translate.Blank
+                ? "<p>" +
+                  Translator.translator(Translator.language.english,
+                      errorMesageCode) + "</p>"
+                : "";
+            form = errorMessage += form;
+            if (!game.CheckForWinner((TicTacToeBoxClass.TicTacToeBox) ticTacToeBox))
+                return form.ToString();
+            form = "<p>Game Over</p>" + form;
+            for (var i = 0; i < ticTacToeBox.cellCount(); i++)
+            {
+                form = RemoveButton("-" + (i + 1) + "-", form);
+            }
+            return form.ToString();
+        }
+
+        private string RemoveButton(string symbol, string form)
+        {
+            return form.Replace(@"<button name=box type=""submit"" value="""
+                               + symbol + @""">"
+                               + symbol + "</button>",
+               symbol);
         }
 
         private List<string> GetBoxValues(string data)
@@ -127,20 +147,21 @@ namespace TicTacToeServer.Core
         private string MakeForm(ITicTacToeBoxClass.ITicTacToeBox ticTacToeBox)
         {
             var formPage = new StringBuilder();
+            formPage.Append(@"<form action=""/"" method=""post"">");
             formPage.Append(@"<table style=""width: 100 % "">");
             for (var i = 0; i < ticTacToeBox.cellCount(); i += 3)
             {
                 formPage.Append("<tr>");
                 for (var k = 0; k < ticTacToeBox.victoryCellCount(); k++)
                     formPage.Append(
-                        $"<td>{WebUtility.HtmlEncode(ticTacToeBox.getGlyphAtLocation(i + k))}</td>");
+                        @"<td><button name=box type=""submit"" value=""" +
+                        WebUtility.HtmlEncode(ticTacToeBox.getGlyphAtLocation(i + k))
+                        + @""">" +
+                        $"{WebUtility.HtmlEncode(ticTacToeBox.getGlyphAtLocation(i + k))}" +
+                        "</button></td>");
                 formPage.Append("</tr>");
             }
             formPage.Append(@"</table>");
-            formPage.Append(@"<form action=""/"" method=""post"">");
-            formPage.Append(@"Input Move:<br>");
-            formPage.Append(@"<input type=""text"" name=""move""><br>");
-            formPage.Append(@"<input type=""submit"" value=""Submit"">");
             for (var i = 0; i < ticTacToeBox.cellCount(); i++)
                 formPage.Append(@"<input type=""hidden"" name=""pos" + i + @""" value=""" +
                                 ticTacToeBox.getGlyphAtLocation(i) + @"""><br>");
