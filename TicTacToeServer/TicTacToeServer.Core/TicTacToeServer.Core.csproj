@@ -52,7 +52,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TicTacToe, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ShawnHorvatic.TicTacToe.Core.0.0.1\lib\TicTacToe.dll</HintPath>
+      <HintPath>..\packages\ShawnHorvatic.TicTacToe.Core.0.0.2\lib\TicTacToe.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

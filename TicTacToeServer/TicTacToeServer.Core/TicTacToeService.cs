@@ -10,17 +10,20 @@ namespace TicTacToeServer.Core
 {
     public class TicTacToeService : IHttpServiceProcessor
     {
-        public bool CanProcessRequest(string request, ServerProperties serverProperties)
+        public bool CanProcessRequest(string request,
+            ServerProperties serverProperties)
         {
             return CleanRequest(request) == "/";
         }
 
-        public IHttpResponse ProcessRequest(string request, IHttpResponse httpResponse,
+        public IHttpResponse ProcessRequest(string request,
+            IHttpResponse httpResponse,
             ServerProperties serverProperties)
         {
             return request.Contains("GET /")
                 ? GetRequest(httpResponse)
-                : PostRequest(request, httpResponse, serverProperties);
+                : PostRequest(request, httpResponse,
+                    serverProperties);
         }
 
         private IHttpResponse PostRequest(string request,
@@ -59,7 +62,8 @@ namespace TicTacToeServer.Core
 
             httpResponse.Body = HtmlHeader() +
                                 Form(ticTacToeBox,
-                                    game, errorMesageCode, serverProperties)
+                                    game, errorMesageCode,
+                                    serverProperties)
                                 + HtmlTail();
             httpResponse.ContentLength =
                 Encoding.ASCII.GetByteCount(httpResponse.Body);
@@ -81,7 +85,8 @@ namespace TicTacToeServer.Core
             if (!game.CheckForWinner((TicTacToeBoxClass.TicTacToeBox) ticTacToeBox))
                 return form;
             form = "<p>Game Over</p>"
-                   + @"<a href=""http://127.0.0.1:" + serverProperties.Port
+                   + @"<a href=""http://127.0.0.1:"
+                   + serverProperties.Port
                    + @"""><button>Another Game?</button></a>"
                    + form;
             for (var i = 0; i < ticTacToeBox.cellCount(); i++)
@@ -121,7 +126,9 @@ namespace TicTacToeServer.Core
             httpResponse.HttpStatusCode = "200 OK";
             httpResponse.CacheControl = "no-cache";
             httpResponse.ContentType = "text/html";
-            httpResponse.Body = HtmlHeader() + MakeForm(ticTacToeBox) + HtmlTail();
+            httpResponse.Body = HtmlHeader()
+                                + MakeForm(ticTacToeBox)
+                                + HtmlTail();
             httpResponse.ContentLength =
                 Encoding.ASCII.GetByteCount(httpResponse.Body);
             return httpResponse;
