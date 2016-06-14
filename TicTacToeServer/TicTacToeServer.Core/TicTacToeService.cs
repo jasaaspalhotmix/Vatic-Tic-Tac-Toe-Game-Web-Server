@@ -23,17 +23,22 @@ namespace TicTacToeServer.Core
                 : PostRequest(request, httpResponse, serverProperties);
         }
 
-        private IHttpResponse PostRequest(string request, IHttpResponse httpResponse,
+        private IHttpResponse PostRequest(string request,
+            IHttpResponse httpResponse,
             ServerProperties serverProperties)
         {
-            var game = ((TicTacToeGame) serverProperties.PersistentData);
-            var data = WebUtility.UrlDecode(request.Remove(0
-                , request.LastIndexOf("\r\n\r\n", StringComparison.Ordinal) + 4));
+            var game = ((TicTacToeGame)
+                serverProperties.ServiceSpecificObjectsWrapper);
+            var data = WebUtility.UrlDecode(request.Remove(0,
+                request.LastIndexOf("\r\n\r\n",
+                    StringComparison.Ordinal) + 4));
 
-            var move = data.Substring(0, data.IndexOf("&", StringComparison.Ordinal))
+            var move = data.Substring(0, data.IndexOf("&",
+                StringComparison.Ordinal))
                 .Replace("box=", "");
 
-            if (move.StartsWith("-") && move.EndsWith("-") && move.Length > 2)
+            if (move.StartsWith("-")
+                && move.EndsWith("-") && move.Length > 2)
                 move = move.Replace("-", "");
 
             var ticTacToeBox =
@@ -56,6 +61,8 @@ namespace TicTacToeServer.Core
                                 Form(ticTacToeBox,
                                     game, errorMesageCode, serverProperties)
                                 + HtmlTail();
+            httpResponse.ContentLength =
+                Encoding.ASCII.GetByteCount(httpResponse.Body);
             return httpResponse;
         }
 
@@ -115,6 +122,8 @@ namespace TicTacToeServer.Core
             httpResponse.CacheControl = "no-cache";
             httpResponse.ContentType = "text/html";
             httpResponse.Body = HtmlHeader() + MakeForm(ticTacToeBox) + HtmlTail();
+            httpResponse.ContentLength =
+                Encoding.ASCII.GetByteCount(httpResponse.Body);
             return httpResponse;
         }
 

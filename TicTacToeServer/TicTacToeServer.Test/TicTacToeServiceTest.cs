@@ -24,9 +24,9 @@ namespace TicTacToeServer.Test
         public void Can_Process_Root(string request)
         {
             var service = new TicTacToeService();
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer());
+            var serverProperties = new ServerProperties(null, 
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter());
             Assert.True(service.CanProcessRequest(request, serverProperties));
         }
 
@@ -38,9 +38,9 @@ namespace TicTacToeServer.Test
         public void Cant_Process_Root(string request)
         {
             var service = new TicTacToeService();
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer());
+            var serverProperties = new ServerProperties(null,
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter());
             Assert.False(service.CanProcessRequest(request, serverProperties));
         }
 
@@ -96,9 +96,9 @@ namespace TicTacToeServer.Test
             formPage.Append(@"</body>");
             formPage.Append(@"</html>");
 
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer());
+            var serverProperties = new ServerProperties(null, 
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter());
             var service = new TicTacToeService();
             var httpResponce = service.ProcessRequest(request, serverProperties.DefaultResponse,
                 serverProperties);
@@ -176,9 +176,9 @@ namespace TicTacToeServer.Test
             formPage.Append(@"</body>");
             formPage.Append(@"</html>");
             var service = new TicTacToeService();
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer(),
+            var serverProperties = new ServerProperties(null, 
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter(),
                 new TicTacToeGame(new MockUser()
                     .StubMove(new TicTacToeBoxClass.TicTacToeBox(
                         ListModule.OfSeq(userTicTacToeBox)))
@@ -280,9 +280,9 @@ namespace TicTacToeServer.Test
             formPage.Append(@"</body>");
             formPage.Append(@"</html>");
             var service = new TicTacToeService();
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer(),
+            var serverProperties = new ServerProperties(null,
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter(),
                 new TicTacToeGame(new MockUser()
                     .StubMove(new TicTacToeBoxClass.TicTacToeBox(
                         ListModule.OfSeq(userTicTacToeBox)))
@@ -359,9 +359,9 @@ namespace TicTacToeServer.Test
             formPage.Append(@"</body>");
             formPage.Append(@"</html>");
             var service = new TicTacToeService();
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer(),
+            var serverProperties = new ServerProperties(null,
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter(),
                 new TicTacToeGame(new User(), new Ai(), settings));
             var request = new StringBuilder();
             request.Append("POST / HTTP/1.1\r\n");
@@ -432,9 +432,9 @@ namespace TicTacToeServer.Test
             formPage.Append(@"</body>");
             formPage.Append(@"</html>");
             var service = new TicTacToeService();
-            var serverProperties = new ServerProperties(null, new DirectoryProcessor(),
-                new FileProcessor(), 5555, new HttpResponse(), new ServerTime(),
-                new Printer(),
+            var serverProperties = new ServerProperties(null,
+                5555, new HttpResponse(), new ServerTime(),
+                new MockPrinter(),
                 new TicTacToeGame(new User(), new Ai(), settings));
             var request = new StringBuilder();
             request.Append("POST / HTTP/1.1\r\n");
