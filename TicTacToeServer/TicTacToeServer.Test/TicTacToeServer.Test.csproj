@@ -43,7 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Server.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ShawnHorvatic.Server.Core.0.0.7\lib\Server.Core.dll</HintPath>
+      <HintPath>..\packages\ShawnHorvatic.Server.Core.0.0.8\lib\Server.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -83,6 +83,7 @@
     <Compile Include="MockUser.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service404Test.cs" />
     <Compile Include="TicTacToeGameTest.cs" />
     <Compile Include="TicTacToeServiceTest.cs" />
     <Compile Include="UserTest.cs" />
