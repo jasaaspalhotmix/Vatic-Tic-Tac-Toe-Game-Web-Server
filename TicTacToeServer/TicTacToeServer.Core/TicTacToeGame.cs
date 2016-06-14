@@ -17,10 +17,11 @@ namespace TicTacToeServer.Core
         }
 
         public ITicTacToeBoxClass.ITicTacToeBox Play(
-            ITicTacToeBoxClass.ITicTacToeBox ticTacToeBox
-            , int move)
+            ITicTacToeBoxClass.ITicTacToeBox ticTacToeBox, 
+            int move)
         {
-            if (CheckForWinner((TicTacToeBoxClass.TicTacToeBox) ticTacToeBox))
+            if (CheckForWinner((TicTacToeBoxClass.TicTacToeBox) 
+                ticTacToeBox))
                 return ticTacToeBox;
             var newTicTacToeBox =
                 (TicTacToeBoxClass.TicTacToeBox)
@@ -31,7 +32,8 @@ namespace TicTacToeServer.Core
                 : newTicTacToeBox;
         }
 
-        public bool CheckForWinner(TicTacToeBoxClass.TicTacToeBox ticTacToeBox)
+        public bool CheckForWinner(TicTacToeBoxClass.TicTacToeBox 
+            ticTacToeBox)
         {
             return CheckForWinnerOrTie.checkForWinnerOrTie(ticTacToeBox,
                 Setting.playerGlyph, Setting.aIGlyph)
