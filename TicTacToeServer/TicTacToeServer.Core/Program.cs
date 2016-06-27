@@ -80,14 +80,14 @@ namespace TicTacToeServer.Core
             var zSocket = new DefaultZSocket(endPoint);
             var properties = new ServerProperties(null,
                 portConverted,
-                new HttpResponse(), new ServerTime(), io,
+                new ServerTime(), io,
                 new TicTacToeGame(new User(), new Ai(),
                     MakeSettings()));
             return new MainServer(zSocket, properties,
                 new HttpServiceFactory(new Service404()),
-                new DefaultRequestProcessor(), new DefaultSender(), 
-                new List<string> {"TicTacToeServer.Core"},
-                new List<Assembly> {Assembly.GetExecutingAssembly()});
+                new DefaultRequestProcessor(),
+                new List<string> { "TicTacToeServer.Core" },
+                new List<Assembly> { Assembly.GetExecutingAssembly() });
         }
 
 
@@ -129,7 +129,7 @@ namespace TicTacToeServer.Core
         private static GameSettings.gameSetting MakeSettings()
         {
             return new GameSettings.gameSetting(3, "x", "@"
-                , (int) PlayerValues.playerVals.Human
+                , (int)PlayerValues.playerVals.Human
                 , false, false, false);
         }
     }
