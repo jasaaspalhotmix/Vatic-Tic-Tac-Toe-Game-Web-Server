@@ -23,6 +23,7 @@ namespace TicTacToeServer.Test
         [Fact]
         public void Error_Message()
         {
+            var zSocket = new MockZSocket();
             var correctOutput = new StringBuilder();
             correctOutput.Append(@"<!DOCTYPE html>");
             correctOutput.Append(@"<html>");
@@ -31,14 +32,37 @@ namespace TicTacToeServer.Test
             correctOutput.Append(@"<h1>404, Can not process request on port 5555</h1>");
             correctOutput.Append(@"</body>");
             correctOutput.Append(@"</html>");
-            var httpPackage = new HttpResponse();
             var serverProperties = new ServerProperties(null,
-                5555, new HttpResponse(), new ServerTime(),
+                5555, new ServerTime(),
                 new MockPrinter());
             var service404 = new Service404();
-            httpPackage = (HttpResponse)service404.ProcessRequest("", httpPackage, serverProperties);
-            Assert.Equal("404 Not Found", httpPackage.HttpStatusCode);
-            Assert.Equal(correctOutput.ToString(), httpPackage.Body);
+            service404.ProcessRequest("", new HttpResponse(zSocket),
+                serverProperties);
+
+            zSocket.VerifySend(GetByte("HTTP/1.1 404 Not Found\r\n"),
+                GetByteCount("HTTP/1.1 404 Not Found\r\n"));
+            zSocket.VerifySend(GetByte("Cache-Control: no-cache\r\n"),
+                GetByteCount("Cache-Control: no-cache\r\n"));
+            zSocket.VerifySend(GetByte("Content-Type: text/html\r\n"),
+                GetByteCount("Content-Type: text/html\r\n"));
+            zSocket.VerifySend(GetByte("Content-Length: "
+                + GetByteCount(correctOutput.ToString())
+                + "\r\n\r\n"),
+                GetByteCount("Content-Length: "
+                + GetByteCount(correctOutput.ToString())
+                + "\r\n\r\n"));
+
+            zSocket.VerifySend(GetByte(correctOutput.ToString()),
+                GetByteCount(correctOutput.ToString()));
+        }
+        private int GetByteCount(string message)
+        {
+            return Encoding.ASCII.GetByteCount(message);
+        }
+
+        private byte[] GetByte(string message)
+        {
+            return Encoding.ASCII.GetBytes(message);
         }
     }
 }

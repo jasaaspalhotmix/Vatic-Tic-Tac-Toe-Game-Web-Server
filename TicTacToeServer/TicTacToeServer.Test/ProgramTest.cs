@@ -19,7 +19,7 @@ namespace TicTacToeServer.Test
             correctOutput.Append("Invaild Port Detected.");
             correctOutput.Append("Vaild Ports 2000 - 65000");
 
-            string[] argsTicTacToe = {"-p", invaildPorts.ToString()};
+            string[] argsTicTacToe = { "-p", invaildPorts.ToString() };
             var mockPrinterOne = new MockPrinter();
             var serverMadeTicTacToe = Program.MakeServer(argsTicTacToe, mockPrinterOne);
             Assert.Null(serverMadeTicTacToe);
@@ -32,7 +32,7 @@ namespace TicTacToeServer.Test
             var mockPrinter = new MockPrinter();
             var correctOutput = new StringBuilder();
 
-            string[] args = {"-p", "8765"};
+            string[] args = { "-p", "8765" };
             var serverMade = Program.MakeServer(args, mockPrinter);
             Assert.NotNull(serverMade);
 
@@ -50,7 +50,7 @@ namespace TicTacToeServer.Test
             correctOutput.Append("Invaild Port Detected.");
             correctOutput.Append("Vaild Ports 2000 - 65000");
 
-            string[] args = {"-p", "hello"};
+            string[] args = { "-p", "hello" };
             var serverMade = Program.MakeServer(args, mockPrinter);
             Assert.Null(serverMade);
             mockPrinter.VerifyPrint(correctOutput.ToString());
@@ -61,7 +61,7 @@ namespace TicTacToeServer.Test
         public void Make_TicTacToe_Server_Correct()
         {
             var mockPrinter = new MockPrinter();
-            string[] args = {"-p", "9560"};
+            string[] args = { "-p", "9560" };
             var serverMade = Program.MakeServer(args, mockPrinter);
             Assert.NotNull(serverMade);
         }
@@ -70,7 +70,7 @@ namespace TicTacToeServer.Test
         public void Make_TicTacToe_Incorrect_Correct()
         {
             var mockPrinter = new MockPrinter();
-            string[] args = {"2750", "-p"};
+            string[] args = { "2750", "-p" };
             var serverMade = Program.MakeServer(args, mockPrinter);
             Assert.Null(serverMade);
         }
@@ -79,7 +79,7 @@ namespace TicTacToeServer.Test
         public void Make_TicTacToe_Incorrect_Correct_No_Port()
         {
             var mockPrinter = new MockPrinter();
-            string[] args = {"-p", "-p"};
+            string[] args = { "-p", "-p" };
             var serverMade = Program.MakeServer(args, mockPrinter);
             Assert.Null(serverMade);
         }
@@ -93,9 +93,9 @@ namespace TicTacToeServer.Test
             correctOutput.Append("Can only be -p PORT\n");
             correctOutput.Append("Examples:\n");
             correctOutput.Append("Server.exe -p 8080\n");
-           correctOutput.Append("Server.exe -p 9999");
+            correctOutput.Append("Server.exe -p 9999");
 
-            var args = new[] {"-s"};
+            var args = new[] { "-s" };
             var serverMade = Program.MakeServer(args, mockPrinter);
             Assert.Null(serverMade);
             mockPrinter.VerifyPrint(correctOutput.ToString());
@@ -104,7 +104,7 @@ namespace TicTacToeServer.Test
         [Fact]
         public void Main_Starting_Program()
         {
-            string[] args = {};
+            string[] args = { };
             Assert.Equal(0, Program.Main(args));
         }
 
